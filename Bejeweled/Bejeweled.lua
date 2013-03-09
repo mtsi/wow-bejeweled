@@ -7774,60 +7774,64 @@ i:SetScript("OnKeyUp",function(e,t)if(t=="LSHIFT"or t=="RSHIFT"or t=="LCTRL"or t
   end
 end
 end)
-i:SetScript("OnKeyDown",function(e,t)if(t=="ESCAPE")then
-  e:EnableKeyboard(false)
-  e.keybindButton:SetText("None")
-  e.keybindButton:UnlockHighlight()
-  e.keybindButton.savedText=nil
-  BejeweledProfile.settings.keybinding=nil
-  ClearOverrideBindings(e)
-else
-  if(GetBindingFromClick(t)=="SCREENSHOT")then
-    RunBinding("SCREENSHOT")
-    return
-  end
-  if(t=="UNKNOWN")then
-    return
-  end
-  if(t=="LSHIFT"or t=="RSHIFT"or t=="LCTRL"or t=="RCTRL"or t=="LALT"or t=="RALT")then
-    t=G(t,2)if(e.keybindModifier=="")then
-    e.keybindModifier=t
-  else
-    if not string.find(e.keybindModifier,t)then
-      e.keybindModifier=e.keybindModifier.."-"..t
+
+  i:SetScript("OnKeyDown", function(e,t)
+    if(t=="ESCAPE") then
+      e:EnableKeyboard(false)
+      e.keybindButton:SetText("None")
+      e.keybindButton:UnlockHighlight()
+      e.keybindButton.savedText=nil
+      BejeweledProfile.settings.keybinding=nil
+      ClearOverrideBindings(e)
+    else
+      if(GetBindingFromClick(t)=="SCREENSHOT") then
+        RunBinding("SCREENSHOT")
+        return
+      end
+      if(t=="UNKNOWN") then
+        return
+      end
+      if(t=="LSHIFT" or t=="RSHIFT" or t=="LCTRL" or t=="RCTRL" or t=="LALT" or t=="RALT") then
+        t=G(t,2)
+        if(e.keybindModifier==nil or e.keybindModifier=="") then
+          e.keybindModifier=t
+        else
+          if not string.find(e.keybindModifier,t) then
+            e.keybindModifier=e.keybindModifier.."-"..t
+          end
+        end
+        return
+      elseif(e.newKeybindButton~="") then
+        return
+      end
+      local n=""
+      e.keybindModifier=""
+      if(IsAltKeyDown()) then
+        e.keybindModifier="ALT"
+        n="-"
+      end
+      if(IsControlKeyDown()) then
+        e.keybindModifier=e.keybindModifier..n.."CTRL"
+        n="-"
+      end
+      if(IsShiftKeyDown()) then
+        e.keybindModifier=e.keybindModifier..n.."SHIFT"
+      end
+      if(e.keybindModifier=="") then
+        e.newKeybindButton=t
+      else
+        e.newKeybindButton=e.keybindModifier.."-"..t
+      end
+      e:EnableKeyboard(false)
+      e.keybindButton:SetText(e.newKeybindButton)
+      e.keybindButton:UnlockHighlight()
+      e.keybindButton.savedText=nil
+      SetOverrideBindingClick(e,true,e.newKeybindButton,"BejeweledShowHideButton")
+      BejeweledProfile.settings.keybinding=e.newKeybindButton
     end
-  end
-  return
-elseif(e.newKeybindButton~="")then
-  return
+  end)
 end
-local n=""
-e.keybindModifier=""
-if(IsAltKeyDown())then
-  e.keybindModifier="ALT"
-  n="-"
-end
-if(IsControlKeyDown())then
-  e.keybindModifier=e.keybindModifier..n.."CTRL"
-  n="-"
-end
-if(IsShiftKeyDown())then
-  e.keybindModifier=e.keybindModifier..n.."SHIFT"
-end
-if(e.keybindModifier=="")then
-  e.newKeybindButton=t
-else
-  e.newKeybindButton=e.keybindModifier.."-"..t
-end
-e:EnableKeyboard(false)
-e.keybindButton:SetText(e.newKeybindButton)
-e.keybindButton:UnlockHighlight()
-e.keybindButton.savedText=nil
-SetOverrideBindingClick(e,true,e.newKeybindButton,"BejeweledShowHideButton")
-BejeweledProfile.settings.keybinding=e.newKeybindButton
-end
-end)
-end
+
 local function S(i,t,l,o)local o=e.flightOptionWindow
   if(t=="UNIT_FLAGS")and(l=="player")then
     if UnitOnTaxi("player")then
