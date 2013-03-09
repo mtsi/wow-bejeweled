@@ -2027,9 +2027,11 @@ if(o<.855)then
 i=o/.855/(.855/o);if(i<.75)then
 i=.75;end
 end
-local r=t:GetWidth()-i*56-t.menuButton:GetWidth();r=math.min(l[1],r);a=r/l[1];e.gameBoard:SetScale(o);e.summaryScreen:SetScale(o);t:SetHeight((w+4)*o+110);if not(n.gameOver)then
+local r=t:GetWidth()-i*56-t.menuButton:GetWidth();r=math.min(l[1],r);a=r/l[1];e.gameBoard:SetScale(o);e.summaryScreen:SetScale(o);t:SetHeight((w+4)*o+110);if(e.levelBar)then 
+if not(n.gameOver)then
 e.levelBar:SetScore(e.levelBar.score or(0));else
 e.levelBar.bar:SetWidth(e.levelBar:GetWidth()-4);end
+end
 t.logo:SetWidth(l[1]*a);t.logo:SetHeight(l[2]*a);t.icon:SetWidth(64*i);t.icon:SetHeight(64*i);e.resizeUpdate=true;end);local n=CreateFrame("Frame","BejeweledShowHideButton",UIParent);n:SetWidth(1);n:SetHeight(1);n:SetPoint("Bottomright");n:SetScript("OnMouseDown",function()if(e.window:IsShown())then
 e.window:Hide();else
 e.window:Show();end
