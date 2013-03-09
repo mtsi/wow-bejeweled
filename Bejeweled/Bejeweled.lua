@@ -393,7 +393,7 @@ n=e.skillBar:CheckSkill(e.const.SKILLTYPE_FUN,e.const.SKILL_FUNRANK2A);end
 end
 return(n~=0)end);end
 if not o.gainFun4 then
-t:AddEvent("COMBAT_LOG_EVENT_UNFILTERED",function(t,t,...)local t=0;local i,o,l,l,n=select(2,...);if(i=="PARTY_KILL")and(o==UnitGUID("player"))and(n==UnitGUID("target"))then
+t:AddEvent("COMBAT_LOG_EVENT_UNFILTERED",function(t,t,...)local t=0;local i,l,o,l,l,l,n=select(2,...);if(i=="PARTY_KILL")and(o==UnitGUID("player"))and(n==UnitGUID("target"))then
 if UnitCreatureType("target")=="Critter"then
 t=e.skillBar:CheckSkill(e.const.SKILLTYPE_FUN,e.const.SKILL_FUNRANK2B);end
 end
