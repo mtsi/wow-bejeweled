@@ -1,4 +1,4 @@
-## Interface: 30300
+## Interface: 50200
 ## Title: Bejeweled
 ## Version: 1.1b
 ## Notes: The popular game Bejeweled, now for World of Warcraft!
